@@ -1,18 +1,17 @@
-## Getting Started
+Trabalho Projeto Integrado Unifeob
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+Empresa: 
+AbracadaKids
+ 
+Alunos:
+RA: 24000758	NOME: Thauan Thales Paulista
+RA: 24000759 	NOME: Gustavo Costa Jorge
+RA: 24000544	NOME: Jhones Medeiros Martins
 
-## Folder Structure
+Sobre P.I:
+O projeto visa fazer uma simulacao de uma classe Produto/ Brincadeiras e a classe pricipal App.java
+com o ituito de utilizar todos os Metodos, Atributos, Heranca, Polimorfismo etc...
 
-The workspace contains two folders by default, where:
+Apesar de ainda faltarem mais classes por ser uma empresa de Recreacao Infantil, conseguimos retratar bem como 
+funciona um esquema funcional para o projeto.
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
-
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
-
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
