@@ -176,8 +176,3 @@ INSERT INTO abracadabrakids.brincadeiras_recreacao (id_criancas, id_brinquedos, 
 (2, 2, 'Jogo de Banco Imobiliário', 2),
 (3, 3, 'Casinha de Bonecas Barbie', 3);
 
- --codigo para consulta com JOIN.
-
-SELECT b.nome AS brinquedos, f.nome AS fornecedores
-FROM abracadabrakids.brinquedos b
-JOIN abracadabrakids.fornecedores f ON b.id_fornecedor = f.id;
