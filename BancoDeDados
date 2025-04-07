@@ -1,1 +1,177 @@
+    // Codigo fonte do banco de dados em mysql.
 
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema abracadabrakids
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema abracadabrakids
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS abracadabrakids DEFAULT CHARACTER SET utf8 ;
+USE abracadabrakids ;
+
+-- -----------------------------------------------------
+-- Table abracadabrakids.fornecedores
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS abracadabrakids.fornecedores ;
+
+CREATE TABLE IF NOT EXISTS abracadabrakids.fornecedores (
+  id INT NOT NULL AUTO_INCREMENT,
+  nome VARCHAR(100) NOT NULL,
+  cnpj VARCHAR(100) NOT NULL,
+  contato VARCHAR(100) NOT NULL,
+  PRIMARY KEY (id))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table abracadabrakids.brinquedos
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS abracadabrakids.brinquedos ;
+
+CREATE TABLE IF NOT EXISTS abracadabrakids.brinquedos (
+  id INT NOT NULL AUTO_INCREMENT,
+  nome VARCHAR(45) NOT NULL,
+  faixa_etaria VARCHAR(200) NOT NULL,
+  id_fornecedor INT NOT NULL,
+  PRIMARY KEY (id),
+  INDEX fk_produtos_2_idx (id_fornecedor ASC),
+  CONSTRAINT fk_brinquedos_2
+    FOREIGN KEY (id_fornecedor)
+    REFERENCES abracadabrakids.fornecedores (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table abracadabrakids.clientes
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS abracadabrakids.clientes ;
+
+CREATE TABLE IF NOT EXISTS abracadabrakids.clientes (
+  id INT NOT NULL AUTO_INCREMENT,
+  nome VARCHAR(100) NOT NULL,
+  endereco VARCHAR(200) NOT NULL,
+  telefone VARCHAR(20) NOT NULL,
+  PRIMARY KEY (id))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table abracadabrakids.tutores
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS abracadabrakids.tutores ;
+
+CREATE TABLE IF NOT EXISTS abracadabrakids.tutores (
+  id INT NOT NULL AUTO_INCREMENT,
+  nome VARCHAR(100) NOT NULL,
+  cpf VARCHAR(100) NOT NULL,
+  telefone VARCHAR(100) NOT NULL,
+  PRIMARY KEY (id))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table abracadabrakids.criancas
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS abracadabrakids.criancas ;
+
+CREATE TABLE IF NOT EXISTS abracadabrakids.criancas (
+  id INT NOT NULL AUTO_INCREMENT,
+  id_clientes INT NOT NULL,
+  data_nascimento DATE,
+  nome VARCHAR(45) NOT NULL,
+  id_tutores INT NOT NULL,
+  PRIMARY KEY (id),
+  INDEX fk_compras_1_idx (id_clientes ASC),
+  INDEX fk_criancas_2_idx (id_tutores ASC),
+  CONSTRAINT fk_criancas_1
+    FOREIGN KEY (id_clientes)
+    REFERENCES abracadabrakids.clientes (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_criancas_2
+    FOREIGN KEY (id_tutores)
+    REFERENCES abracadabrakids.tutores (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table abracadabrakids.brincadeiras_recreacao
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS abracadabrakids.brincadeiras_recreacao ;
+
+CREATE TABLE IF NOT EXISTS abracadabrakids.brincadeiras_recreacao (
+  id INT NOT NULL AUTO_INCREMENT,
+  id_criancas INT NOT NULL,
+  id_brinquedos INT NOT NULL,
+  nome VARCHAR(100) NOT NULL,
+  id_tutores INT NOT NULL,
+  PRIMARY KEY (id),
+  INDEX fk_produtos_compra_1_idx (id_brinquedos ASC),
+  INDEX fk_brincadeiras_recreacao_3_idx (id_tutores ASC),
+  CONSTRAINT fk_brincadeiras_recreacao_1
+    FOREIGN KEY (id_brinquedos)
+    REFERENCES abracadabrakids.brinquedos (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_brincadeiras_recreacao_2
+    FOREIGN KEY (id_criancas)
+    REFERENCES abracadabrakids.criancas (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_brincadeiras_recreacao_3
+    FOREIGN KEY (id_tutores)
+    REFERENCES abracadabrakids.tutores (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+  // Codigo para insercao de dados.
+
+USE abracadabrakids;
+
+INSERT INTO abracadabrakids.fornecedores (nome, cnpj, contato) VALUES
+('Estrela Brinquedos Ltda', '61.739.148/0001-09', '(11) 4002-8922'),
+('Grow Jogos e Brinquedos', '12.345.678/0001-55', '(21) 3333-1122'),
+('Mattel do Brasil', '98.765.432/0001-77', '(31) 99988-7766');
+
+
+INSERT INTO abracadabrakids.brinquedos (nome, faixa_etaria, id_fornecedor) VALUES
+('Hot Wheels Pista Radical', '4-10 anos', 1),
+('Banco Imobiliário', '8-14 anos', 2),
+('Barbie Dream House', '3-9 anos', 3);
+
+INSERT INTO abracadabrakids.clientes (nome, endereco, telefone) VALUES
+('Roberto Silva', 'Rua das Acácias, 45 - São Paulo/SP', '(11) 98234-5678'),
+('Fernanda Almeida', 'Av. Atlântica, 900 - Rio de Janeiro/RJ', '(21) 97856-4321'),
+('André Moreira', 'Rua dos Pinheiros, 302 - Belo Horizonte/MG', '(31) 98745-0987');
+
+INSERT INTO abracadabrakids.tutores (nome, cpf, telefone) VALUES
+('Mônica Santos', '345.678.901-22', '(11) 97645-3210'),
+('Lucas Menezes', '567.890.123-33', '(21) 98712-4568'),
+('Patrícia Nogueira', '678.901.234-44', '(31) 99987-6543');
+
+INSERT INTO abracadabrakids.criancas (id_clientes, data_nascimento, nome, id_tutores) VALUES
+(1, '2016-04-12', 'Gabriel Silva', 1),
+(2, '2018-07-30', 'Mariana Almeida', 2),
+(3, '2015-10-05', 'João Moreira', 3);
+
+INSERT INTO abracadabrakids.brincadeiras_recreacao (id_criancas, id_brinquedos, nome, id_tutores) VALUES
+(1, 1, 'Corrida de Hot Wheels', 1),
+(2, 2, 'Jogo de Banco Imobiliário', 2),
+(3, 3, 'Casinha de Bonecas Barbie', 3);
