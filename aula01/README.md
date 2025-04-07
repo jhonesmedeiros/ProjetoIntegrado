@@ -5,7 +5,7 @@ AbracadaKids
  
 Alunos:
 RA: 24000758	NOME: Thauan Thales Paulista
-RA: 24000759 	NOME: Gustavo Costa Jorge
+RA: 24000679	NOME: Gustavo Costa Jorge
 RA: 24000544	NOME: Jhones Medeiros Martins
 
 Sobre P.I:
